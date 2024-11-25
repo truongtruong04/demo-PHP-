@@ -1,0 +1,59 @@
+-- Tạo cơ sở dữ liệu
+CREATE DATABASE QuanLySinhVien;
+USE QuanLySinhVien;
+
+-- Bảng sinhvien
+CREATE TABLE sinhvien (
+    stt INT AUTO_INCREMENT PRIMARY KEY,
+    ma_sv VARCHAR(10) UNIQUE NOT NULL,
+    hoten VARCHAR(100) NOT NULL,
+    ngaysinh DATE,
+    email VARCHAR(100) UNIQUE,
+    sdt VARCHAR(15),
+    diachi VARCHAR(255)
+);
+
+-- Bảng monhoc
+CREATE TABLE monhoc (
+    ma_mh VARCHAR(10) PRIMARY KEY,
+    ten_mh VARCHAR(100) NOT NULL,
+    sotinchi INT NOT NULL
+);
+
+-- Bảng lophoc
+CREATE TABLE lophoc (
+    ma_lop VARCHAR(10) PRIMARY KEY,
+    ten_lop VARCHAR(100) NOT NULL,
+    ma_mh VARCHAR(10) NOT NULL,
+    ngaybatdau DATE,
+    ngayketthuc DATE,
+    FOREIGN KEY (ma_mh) REFERENCES monhoc(ma_mh)
+);
+
+-- Bảng diem
+CREATE TABLE diem (
+    ma_sv VARCHAR(10) NOT NULL,
+    ma_mh VARCHAR(10) NOT NULL,
+    diem_gk FLOAT,
+    diem_ck FLOAT,
+    diem_tb FLOAT GENERATED ALWAYS AS ((diem_gk + diem_ck) / 2) STORED,
+    PRIMARY KEY (ma_sv, ma_mh),
+    FOREIGN KEY (ma_sv) REFERENCES sinhvien(ma_sv),
+    FOREIGN KEY (ma_mh) REFERENCES monhoc(ma_mh)
+);
+
+-- Tạo bảng users
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    user_type ENUM('admin', 'giangvien', 'sinhvien') NOT NULL,
+    ma_sv VARCHAR(10) DEFAULT NULL, -- Chỉ dùng cho tài khoản sinh viên
+    FOREIGN KEY (ma_sv) REFERENCES sinhvien(ma_sv) ON DELETE SET NULL
+);
+
+-- Thêm tài khoản mẫu
+INSERT INTO users (username, password, user_type, ma_sv) VALUES
+('admin', MD5('admin123'), 'admin', NULL),
+('gv01', MD5('giangvien123'), 'giangvien', NULL),
+('sv01', MD5('sinhvien123'), 'sinhvien', 'SV001');

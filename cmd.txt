@@ -1,0 +1,89 @@
+ Dùng phím Ctrl + C để thoát câu lệnh lỗi
+
+
+cd mysql
+cd bin
+mysql -u root -p
+show databases;
+use quanlysinhvien;
+show tables;
+select * from sinhvien;
+INSERT INTO sinhvien (ma_sv, hoten, ngaysinh, email, sdt, diachi) 
+VALUES 
+('SV006', 'Nguyễn Văn B', '2002-06-15', 'nguyenb@gmail.com', '0123456789', 'Hà Nội'),
+('SV007', 'Trần Thị C', '2001-09-10', 'tranc@gmail.com', '0987654321', 'Hải Phòng');
+
+-------Xóa sinh viên dựa trên mã sinh viên-----
+DELETE FROM sinhvien WHERE ma_sv = 'SV006';
+DELETE FROM sinhvien WHERE ma_sv = 'SV007';
+
+
+-----------------
+Cập nhật địa chỉ của sinh viên SV005:
+sql
+Sao chép mã
+UPDATE sinhvien 
+SET diachi = 'Đà Nẵng'
+WHERE ma_sv = 'SV005';
+----------------------
+Cập nhật email và số điện thoại của sinh viên SV005:
+sql
+Sao chép mã
+UPDATE sinhvien 
+SET email = 'tranthiC_updated@gmail.com', sdt = '0912345678'
+WHERE ma_sv = 'SV005';
+-----------Điểm
+Cấu trúc câu lệnh:
+sql
+Sao chép mã
+INSERT INTO diem (ma_sv, ma_mh, diem_gk, diem_ck) 
+VALUES ('ma_sv_value', ma_mh_value, diem_gk_value, diem_ck_value);
+Ví dụ: Thêm điểm cho sinh viên SV006
+sql
+Sao chép mã
+INSERT INTO diem (ma_sv, ma_mh, diem_gk, diem_ck) 
+VALUES ('SV003', 1, 8.0, 9.0), 
+       ('SV004', 2, 7.5, 8.0);
+
+--------- điểm
+Ví dụ: Xóa toàn bộ điểm của sinh viên SV006:
+sql
+Sao chép mã
+DELETE FROM diem 
+WHERE ma_sv = 'SV006';
+
+
+
+Ví dụ: Xóa điểm của sinh viên SV006 cho môn học ma_mh = 1:
+sql
+Sao chép mã
+DELETE FROM diem 
+WHERE ma_sv = 'SV006' AND ma_mh = 1;
+-------------- môn học
+Cấu trúc câu lệnh:
+sql
+Sao chép mã
+INSERT INTO monhoc (ma_mh, ten_mh, sotinchi) 
+VALUES ('ma_mh_value', 'ten_mh_value', sotinchi_value);
+Ví dụ: Thêm môn học
+sql
+Sao chép mã
+INSERT INTO monhoc (ma_mh, ten_mh, sotinchi) 
+VALUES 
+('MH001', 'Toán cao cấp', 3),
+('MH002', 'Lập trình C++', 4),
+('MH003', 'Cơ sở dữ liệu', 3);
+----------Thêm lớp học ---------
+Cấu trúc câu lệnh:
+sql
+Sao chép mã
+INSERT INTO lophoc (ma_lop, ten_lop, ma_mh, ngaybatdau, ngayketthuc) 
+VALUES ('ma_lop_value', 'ten_lop_value', 'ma_mh_value', 'YYYY-MM-DD', 'YYYY-MM-DD');
+Ví dụ: Thêm lớp học
+sql
+Sao chép mã
+INSERT INTO lophoc (ma_lop, ten_lop, ma_mh, ngaybatdau, ngayketthuc) 
+VALUES 
+('LH001', 'Lớp Toán 01', 'MH001', '2024-01-01', '2024-06-30'),
+('LH002', 'Lớp Lập trình 01', 'MH002', '2024-02-01', '2024-07-31'),
+('LH003', 'Lớp CSDL 01', 'MH003', '2024-03-01', '2024-08-15');
