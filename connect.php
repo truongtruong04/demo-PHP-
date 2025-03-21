@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
+$servername = "127.0.0.1:8118";
 $username = "root";
-$password = "";
-$db = "QuanLySinhVien"; // Tên cơ sở dữ liệu của bạn
+$password = "123456";
+$db = "quanlysinhvien"; // Tên cơ sở dữ liệu của bạn
 
 // Kết nối cơ sở dữ liệu
 $conn = mysqli_connect($servername, $username, $password, $db);

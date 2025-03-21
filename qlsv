@@ -1,6 +1,6 @@
 -- Tạo cơ sở dữ liệu
-CREATE DATABASE QuanLySinhVien;
-USE QuanLySinhVien;
+CREATE DATABASE quanlysinhvien;
+USE quanlysinhvien;
 
 -- Bảng sinhvien
 CREATE TABLE sinhvien (
